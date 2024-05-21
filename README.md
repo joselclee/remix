@@ -3,11 +3,17 @@ Application that uses Spotify's API and a content-filtering based recommender sy
 ### Planned Features:
 <ul>
   <li>Spotify Login and playlist(s) linking.</li>
-  <li>Suggest "same-vibe" songs based on Spotify account(s) or playlist(s) provided.</li>
+  <li>Suggest "same-vibe" songs based on Spotify account or playlist(s) provided.</li>
   <li>Suggest songs based on selected "mood".</li>
   <li>Suggest similar songs based on one song provided</li>
 </ul>
 <br>
 When suggesting songs, a list of 10 songs maximum will be displayed on the screen with the option of playing it.
 <br><br>
-DISCLAIMER: To avoid breaching Spotify's terms of service, the Spotify dataset is **NOT** used to train the model. Instead a 3rd party dataset linked /here/ is used to train the model. Unfortunately this means that songs released after /dataset publishing date/ will not be included in the training of the model.
+Below is a short description of how each feature is achieved.
+<ul>
+  <li>Same-vibe recommendations is achieved by using Spotify's recommender endpoint with a score calculated by the recommender system via the inputted playlist(s) or the top* 100 songs of the account provided.</li>
+  <li>Mood recommendations are based on preset inputs that are sent to Spotify's recommender endpoint along with the user profile.</li>
+  <li>Similar songs based on one song are recommended via Spotify's recommender endpoint.</li>
+</ul>
+<sub>*top songs are based on yearly stats not all-time.</sub>
