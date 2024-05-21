@@ -9,5 +9,5 @@ Application that uses Spotify's API and a content-filtering based recommender sy
 </ul>
 <br>
 When suggesting songs, a list of 10 songs maximum will be displayed on the screen with the option of playing it.
-<br>
+<br><br>
 DISCLAIMER: To avoid breaching Spotify's terms of service, the Spotify dataset is **NOT** used to train the model. Instead a 3rd party dataset linked /here/ is used to train the model. Unfortunately this means that songs released after /dataset publishing date/ will not be included in the training of the model.
