@@ -174,7 +174,20 @@ def get_access_token():
         return response_data["access_token"]
     else:
         raise Exception("Couldn't get access token", response_data)
-    
+
+def get_track(access_token, song_id):
+    api_url = f"https://api.spotify.com/v1/tracks/{song_id}"
+    headers = {
+        "Authorization": f"Bearer {access_token}"
+    }
+    response = requests.get(api_url, headers=headers)
+    results = response.json()
+
+    if response.status_code == 200:
+        return results
+    else:
+        raise Exception("Couldn't get track", results)
+
 def get_track_audio_features(access_token, song_id):
     api_url = f"https://api.spotify.com/v1/audio-features/{song_id}"
     headers = {
@@ -185,7 +198,7 @@ def get_track_audio_features(access_token, song_id):
     if response.status_code == 200:
         return results
     else:
-        raise Exception("Couldn't get song", results)
+        raise Exception("Couldn't get track audio features", results)
     
 # recommend song via content based filtering
 def recommend_song(access_token, song):
@@ -203,30 +216,30 @@ def recommend_song(access_token, song):
         # "min_acousticness": data["acousticness"] - 0.1,
         # "max_acousticness": data["acousticness"] + 0.1,
         # "target_acousticness": data["acousticness"],
-        "min_danceability": data["danceability"] - 0.1,
+        "min_danceability": data["danceability"] - 0.35,
         # "max_danceability": data["danceability"] + 0.1,
-        "target_danceability": data["danceability"],
-        "min_energy": data["energy"] - 0.1,
+        # "target_danceability": data["danceability"],
+        "min_energy": data["energy"] - 0.25,
         # "max_energy": data["energy"] + 0.1,
-        "target_energy": data["energy"],
+        # "target_energy": data["energy"],
         # "min_instrumentalness": data["instrumentalness"] - 0.1,
         # "max_instrumentalness": data["instrumentalness"] + 0.1,
         # "target_instrumentalness": data["instrumentalness"],
-        "min_liveness": data["liveness"] - 0.1,
+        "min_liveness": data["liveness"] - 0.25,
         # "max_liveness": data["liveness"] + 0.1,
         # "target_liveness": data["liveness"],
-        "min_loudness": data["loudness"] - 0.1,
+        "min_loudness": data["loudness"] - 0.3,
         # "max_loudness": data["loudness"] + 0.1,
         # "min_speechiness": data["speechiness"] - 0.1,
         # "max_speechiness": data["speechiness"] + 0.1,
-        "min_tempo": data["tempo"] - 0.1,
-        # "max_tempo": data["tempo"] + 0.1,
+        "min_tempo": data["tempo"] - 10,
+        "max_tempo": data["tempo"] + 10,
         # "target_tempo": data["tempo"],
-        "min_valence": data["valence"] - 0.1,
+        "min_valence": data["valence"] - 0.2,
         "max_valence": data["valence"] + 0.2,
         # "target_valence": data["valence"],
-        "min_time_signature": data["time_signature"]
-        # "max_time_signature": data["time_signature"] + 0.1,
+        "min_time_signature": data["time_signature"] - 4,
+        # "max_time_signature": data["time_signature"] + 2,
         # "target_time_signature": data["time_signature"],
     }
     response = requests.get(api_url, headers=headers, params=params)
@@ -241,6 +254,10 @@ def recommend_song(access_token, song):
     
 if __name__ == "__main__":
     song1 = {
-        "id": "7fzHQizxTqy8wTXwlrgPQQ"
+        # "id": "7fzHQizxTqy8wTXwlrgPQQ"
+        # "id": "4o8EPKaCQ9BvdoEGyQ0lsF"
+        # "id":"5HQEmiV2lKnSO6qa2fsR7x"
+        "id": "2OzhQlSqBEmt7hmkYxfT6m" # Fortnight Taylor Swift
+        # "id": "2qSkIjg1o9h3YT9RAgYN75" # Espresso Sabrina Carpenter
     }
     recommend_song(get_access_token(), song1)
