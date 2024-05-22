@@ -1,161 +1,6 @@
 import requests
 
 from encoder import encoded_credentials
-song = {
-  "album": {
-    "album_type": "album",
-    "artists": [
-      {
-        "external_urls": {
-          "spotify": "https://open.spotify.com/artist/3TVXtAsR1Inumwj472S9r4"
-        },
-        "href": "https://api.spotify.com/v1/artists/3TVXtAsR1Inumwj472S9r4",
-        "id": "3TVXtAsR1Inumwj472S9r4",
-        "name": "Drake",
-        "type": "artist",
-        "uri": "spotify:artist:3TVXtAsR1Inumwj472S9r4"
-      }
-    ],
-    "available_markets": [
-      "AE",
-      "AU",
-      "BB",
-      "BF",
-      "BH",
-      "BN",
-      "BY",
-      "CA",
-      "DZ",
-      "EG",
-      "GB",
-      "GH",
-      "ID",
-      "IE",
-      "IN",
-      "IQ",
-      "JO",
-      "KG",
-      "KR",
-      "KW",
-      "KZ",
-      "LB",
-      "LY",
-      "MA",
-      "MX",
-      "MY",
-      "NP",
-      "OM",
-      "PS",
-      "QA",
-      "SA",
-      "SG",
-      "TD",
-      "TN",
-      "TR",
-      "UA",
-      "US",
-      "UZ"
-    ],
-    "external_urls": {
-      "spotify": "https://open.spotify.com/album/42wvKYHFezpmDuAP43558f"
-    },
-    "href": "https://api.spotify.com/v1/albums/42wvKYHFezpmDuAP43558f",
-    "id": "42wvKYHFezpmDuAP43558f",
-    "images": [
-      {
-        "url": "https://i.scdn.co/image/ab67616d0000b273c185e37be2a06b5c6f2dc704",
-        "width": 640,
-        "height": 640
-      },
-      {
-        "url": "https://i.scdn.co/image/ab67616d00001e02c185e37be2a06b5c6f2dc704",
-        "width": 300,
-        "height": 300
-      },
-      {
-        "url": "https://i.scdn.co/image/ab67616d00004851c185e37be2a06b5c6f2dc704",
-        "width": 64,
-        "height": 64
-      }
-    ],
-    "name": "Scorpion",
-    "release_date": "2018-06-29",
-    "release_date_precision": "day",
-    "total_tracks": 25,
-    "type": "album",
-    "uri": "spotify:album:42wvKYHFezpmDuAP43558f"
-  },
-  "artists": [
-    {
-      "external_urls": {
-        "spotify": "https://open.spotify.com/artist/3TVXtAsR1Inumwj472S9r4"
-      },
-      "href": "https://api.spotify.com/v1/artists/3TVXtAsR1Inumwj472S9r4",
-      "id": "3TVXtAsR1Inumwj472S9r4",
-      "name": "Drake",
-      "type": "artist",
-      "uri": "spotify:artist:3TVXtAsR1Inumwj472S9r4"
-    }
-  ],
-  "available_markets": [
-    "AE",
-    "AU",
-    "BB",
-    "BF",
-    "BH",
-    "BN",
-    "BY",
-    "CA",
-    "DZ",
-    "EG",
-    "GB",
-    "GH",
-    "ID",
-    "IE",
-    "IN",
-    "IQ",
-    "JO",
-    "KG",
-    "KR",
-    "KW",
-    "KZ",
-    "LB",
-    "LY",
-    "MA",
-    "MX",
-    "MY",
-    "NP",
-    "OM",
-    "PS",
-    "QA",
-    "SA",
-    "SG",
-    "TD",
-    "TN",
-    "TR",
-    "UA",
-    "US",
-    "UZ"
-  ],
-  "disc_number": 2,
-  "duration_ms": 217925,
-  "explicit": "false",
-  "external_ids": {
-    "isrc": "USCM51800207"
-  },
-  "external_urls": {
-    "spotify": "https://open.spotify.com/track/0h1W19pS59KtEd7aDzF58i"
-  },
-  "href": "https://api.spotify.com/v1/tracks/0h1W19pS59KtEd7aDzF58i",
-  "id": "0h1W19pS59KtEd7aDzF58i",
-  "is_local": "false",
-  "name": "In My Feelings",
-  "popularity": 50,
-  "preview_url": "https://p.scdn.co/mp3-preview/dd67abd521bc069758ab0708ccaed608401fe5f5?cid=cfe923b2d660439caf2b557b21f31221",
-  "track_number": 9,
-  "type": "track",
-  "uri": "spotify:track:0h1W19pS59KtEd7aDzF58i"
-}
 
 def get_access_token():
     url = "https://accounts.spotify.com/api/token"
@@ -228,17 +73,17 @@ def recommend_song(access_token, song):
         "min_liveness": data["liveness"] - 0.25,
         # "max_liveness": data["liveness"] + 0.1,
         # "target_liveness": data["liveness"],
-        "min_loudness": data["loudness"] - 0.3,
+        "min_loudness": data["loudness"] - 5,
         # "max_loudness": data["loudness"] + 0.1,
-        # "min_speechiness": data["speechiness"] - 0.1,
+        "min_speechiness": data["speechiness"] - 0.1,
         # "max_speechiness": data["speechiness"] + 0.1,
         "min_tempo": data["tempo"] - 10,
         "max_tempo": data["tempo"] + 10,
         # "target_tempo": data["tempo"],
-        "min_valence": data["valence"] - 0.2,
-        "max_valence": data["valence"] + 0.2,
+        "min_valence": data["valence"] - 0.1,
+        "max_valence": data["valence"] + 0.1,
         # "target_valence": data["valence"],
-        "min_time_signature": data["time_signature"] - 4,
+        "min_time_signature": data["time_signature"] - 3,
         # "max_time_signature": data["time_signature"] + 2,
         # "target_time_signature": data["time_signature"],
     }
@@ -253,11 +98,11 @@ def recommend_song(access_token, song):
     
     
 if __name__ == "__main__":
-    song1 = {
-        # "id": "7fzHQizxTqy8wTXwlrgPQQ"
-        # "id": "4o8EPKaCQ9BvdoEGyQ0lsF"
-        # "id":"5HQEmiV2lKnSO6qa2fsR7x"
-        "id": "2OzhQlSqBEmt7hmkYxfT6m" # Fortnight Taylor Swift
-        # "id": "2qSkIjg1o9h3YT9RAgYN75" # Espresso Sabrina Carpenter
+    song = {
+        # "id": "7fzHQizxTqy8wTXwlrgPQQ" # Million Dollar Baby by Tommy Richman
+        # "id": "4o8EPKaCQ9BvdoEGyQ0lsF" # Beep by Pussy Cat Dolls
+        # "id":"5HQEmiV2lKnSO6qa2fsR7x" # I'm not in love by 10cc
+        # "id": "2OzhQlSqBEmt7hmkYxfT6m" # Fortnight by Taylor Swift
+        # "id": "2qSkIjg1o9h3YT9RAgYN75" # Espresso by Sabrina Carpenter
     }
-    recommend_song(get_access_token(), song1)
+    recommend_song(get_access_token(), song)
