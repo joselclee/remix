@@ -17,3 +17,6 @@ Below is a short description of how each feature is achieved.
   <li>Similar songs based on one song are recommended via Spotify's recommender endpoint.</li>
 </ul>
 <sub>*top songs are based on yearly stats not all-time.</sub>
+<sub>Model training is done with last.fm dataset NOT Spotify data.</sub>
+
+### Currently not being deployed 5/23/2024
