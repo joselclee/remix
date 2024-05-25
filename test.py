@@ -16,9 +16,9 @@ if __name__ == "__main__":
         # "id": "4qjLvvBh5ZeKEPyShKRf06" # narcissist by no rome
     }
     playlists = [
+        {"id": "3cEYpjA9oz9GiPac4AsH4n"},
         {"id": "4DUUWyqWEXJv3JD0o5wmZf"}
     ]
-    # recommend_by_song(get_access_token(), song)
-
-# get_playlist_tracks(access_token, playlists[0]['id'])
-# get_average_audio_features(access_token, [playlist['id'] for playlist in playlists])
+# avg_features = get_average_audio_features(access_token, [playlist['id'] for playlist in playlists])
+# print(avg_features)
+recommend_by_playlist(access_token, [playlist['id'] for playlist in playlists])

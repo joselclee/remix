@@ -50,7 +50,8 @@ def get_multiple_audio_features(access_token, song_ids):
     response = requests.get(api_url, headers=headers)
     results = response.json()
     if response.status_code == 200:
-        return results
+        # Return only the list of audio features
+        return results['audio_features']
     else:
         raise Exception("Couldn't get track audio features", results)
     
@@ -63,7 +64,7 @@ def get_playlist_tracks(access_token, playlist_id):
     response = requests.get(api_url, headers=headers)
     results = response.json()
     cleaned_results = clean_playlist(results)
-    print(cleaned_results)
+    # print(cleaned_results)
     
     if response.status_code == 200:
         return cleaned_results
@@ -76,7 +77,6 @@ def get_average_audio_features(access_token, playlist_ids):
     tracks = []
     
     for playlist in playlist_ids:
-        
         tracks.extend(get_playlist_tracks(access_token, playlist))
         
         # Split track IDs into chunks of 100
@@ -90,7 +90,30 @@ def get_average_audio_features(access_token, playlist_ids):
         
     average_features = {}
     
+    # List of non-numeric features to exclude
+    non_numeric_features = ['type', 'id', 'uri', 'track_href', 'analysis_url']
+
     for feature in all_features[0].keys():
-        average_features[feature] = np.mean([track[feature] for track in all_features])
+        # Skip non-numeric features
+        if feature not in non_numeric_features:
+            average_features[feature] = np.mean([track[feature] for track in all_features])
         
     return average_features
+
+# This funtion gets the top artists of the user.
+def get_top_artists(access_token):
+    api_url = "https://api.spotify.com/v1/me/top/artists"
+    headers = { 
+        "Authorization": f"Bearer {access_token}"
+    }
+    params = {
+        "limit": 5
+    }
+    response = requests.get(api_url, headers=headers, params=params)
+    if response.status_code == 200:
+        return [artist['name'] for artist in response.json()['items']]
+    else:
+        return response.json()
+
+access_token = get_access_token()  # Assuming you have a function to get the access token
+print(get_top_artists(access_token))

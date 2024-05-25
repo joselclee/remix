@@ -5,8 +5,8 @@ from GetData import get_track_audio_features
 
 access_token = get_access_token
 
-def recommend_by_song(access_token, song):
-    data = get_track_audio_features(access_token, song["id"])
+def recommend_by_song(access_token, data):
+    data = get_track_audio_features(access_token, data["id"])
     api_url = f"https://api.spotify.com/v1/recommendations"
     headers = {
         "Authorization": f"Bearer {access_token}"
@@ -16,7 +16,7 @@ def recommend_by_song(access_token, song):
         "market": "ES",
         # "seed_artists": song["artists"][0]["id"],
         # "seed_genres": song['genres'],
-        "seed_tracks": song["id"],
+        "seed_tracks": data["id"],
         # "min_acousticness": data["acousticness"] - 0.1,
         # "max_acousticness": data["acousticness"] + 0.1,
         # "target_acousticness": data["acousticness"],
